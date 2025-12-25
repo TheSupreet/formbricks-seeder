@@ -1,0 +1,28 @@
+services:
+  db:
+    image: pgvector/pgvector:pg15
+    environment:
+      POSTGRES_DB: formbricks
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      retries: 5
+
+  formbricks:
+    image: formbricks/formbricks:latest
+    ports:
+      - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@db:5432/formbricks
+      NEXTAUTH_SECRET: 3817c3b365077fbaf47db8bc61627be7a96c73d92a856381
+      NEXTAUTH_URL: http://localhost:3000
+      ENCRYPTION_KEY: 3d2285ddd2d154c91395e92a0b32af932ed5af431ca59ab39192e5eb7cc7c861
+      CRON_SECRET: 93ce27334d1e6ee5dcd837b92c91993196e69a1149216f7ca75f98180c17d603
+      WEBAPP_URL: http://localhost:3000
