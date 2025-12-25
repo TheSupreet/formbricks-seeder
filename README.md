@@ -36,3 +36,6 @@ python main.py formbricks generate
 python main.py formbricks seed
 python main.py formbricks down
 ```
+### Images
+<img width="1899" height="912" alt="Screenshot 2025-12-25 195943" src="https://github.com/user-attachments/assets/79e86f66-f9e7-426c-86f3-b518f9bfe48a" />
+
